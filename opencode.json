@@ -1,0 +1,113 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "username": "nexa-m2-student",
+  "model": "opencode/big-pickle",
+  "default_agent": "scrum-master",
+  "instructions": ["AGENTS.md"],
+  "skills": {
+    "paths": [".opencode/skills"]
+  },
+  "agents": {
+    "project-manager": {
+      "model": "opencode/big-pickle",
+      "mode": "primary",
+      "description": "Chef de projet global — supervise la vision, la roadmap, les références et coordonne avec le scrum-master.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "allow",
+        "task": "allow",
+        "bash": { "find *": "allow", "ls *": "allow", "*": "ask" },
+        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+      }
+    },
+    "scrum-master": {
+      "model": "opencode/big-pickle",
+      "mode": "primary",
+      "description": "Chef de projet IA — planifie, suit et coordonne l'équipe de développement. Point d'entrée par défaut.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "allow",
+        "task": "allow",
+        "bash": { "find *": "allow", "ls *": "allow", "mkdir *": "allow", "rm *": "ask", "git *": "ask", "*": "ask" },
+        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+      }
+    },
+    "software-engineer": {
+      "model": "opencode/big-pickle",
+      "mode": "subagent",
+      "description": "Ingénieur logiciel généraliste — conçoit, développe et maintient le code du projet (backend, frontend, API, CLI).",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "allow",
+        "task": "allow",
+        "bash": { "python *": "allow", "pip *": "ask", "find *": "allow", "*": "ask" },
+        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+      }
+    },
+    "devops-engineer": {
+      "model": "opencode/big-pickle",
+      "mode": "subagent",
+      "description": "Ingénieur DevOps — gère l'infrastructure du projet: pipeline CI/CD (GitHub Actions), workflows, configuration opencode, scripts d'installation, et environnement local.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "allow",
+        "task": "allow",
+        "bash": { "pip *": "allow", "gh *": "ask", "git *": "ask", "mkdir *": "allow", "find *": "allow", "*": "ask" },
+        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+      }
+    },
+    "cybersecurity-engineer": {
+      "model": "opencode/big-pickle",
+      "mode": "subagent",
+      "description": "Ingénieur cybersécurité — audite la sécurité des agents, vérifie les permissions, les injections, la gestion des tokens, l'isolation des contextes, et la conformité aux bonnes pratiques OWASP pour LLM.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "deny",
+        "task": "allow",
+        "bash": { "find *": "allow", "cat *": "allow", "*": "ask" },
+        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+      }
+    },
+    "qa-engineer": {
+      "model": "opencode/big-pickle",
+      "mode": "subagent",
+      "description": "Ingénieur QA & Test — conçoit et exécute les tests du projet, vérifie la qualité du code, rédige les benchmarks et valide que tous les exemples sont fonctionnels.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "allow",
+        "task": "allow",
+        "bash": { "python *": "allow", "find *": "allow", "*": "ask" },
+        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+      }
+    }
+  },
+  "permission": {
+    "edit": "ask",
+    "bash": { "find *": "allow", "ls *": "allow", "*": "ask" },
+    "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+  },
+  "formatter": false,
+  "lsp": false,
+  "compaction": {
+    "auto": true,
+    "tail_turns": 20
+  }
+}

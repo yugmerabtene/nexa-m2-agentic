@@ -1,0 +1,7 @@
+{
+  "dev-assistant": {
+    "type": "local",
+    "command": ["python", "lab/code/02_mcp_server/server.py"],
+    "enabled": true
+  }
+}
