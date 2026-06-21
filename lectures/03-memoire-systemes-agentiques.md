@@ -1,5 +1,57 @@
 # Séance 3 — Mémoire & Systèmes Agentiques
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 2 heures
+
+---
+
+## Description
+
+Cette séance explore les systèmes de mémoire pour agents autonomes. Vous apprendrez à distinguer les trois types de mémoire (épisodique, sémantique, procédurale), à implémenter une mémoire hiérarchique avec consolidation STM vers LTM, et à comparer les solutions 2026 (HydraDB, OMEGA, Zep, Redis). Cette séance fait le pont entre le context window engineering (séance 2) et le protocole MCP (séance 4).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 2** et compris les limites de la fenêtre de contexte
+- Python 3.10+ installé
+- Connaissances de base en structures de données
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python
+python3 --version
+
+# Installer les dépendances pour cette séance
+python3 -m pip install sentence-transformers
+
+# Vérifier l'installation
+python3 -c "import sentence_transformers; print(sentence_transformers.__version__)"
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python
+py --version
+
+# Installer les dépendances pour cette séance
+py -m pip install sentence-transformers
+
+# Vérifier l'installation
+py -c "import sentence_transformers; print(sentence_transformers.__version__)"
+```
+
+> **Résultat attendu :** sentence-transformers est installé et importable.
+
+---
+
 ## Introduction théorique
 
 **Quel est le problème ?** Un agent sans mémoire est amnésique : chaque interaction repart de zéro. Il ne peut ni apprendre de ses erreurs, ni maintenir un contexte sur la durée, ni personnaliser ses réponses. Dans un scénario réel — assistant client sur 50 échanges, agent de code sur un projet de 10 000 fichiers, chatbot de support sur plusieurs sessions — l'absence de mémoire rend l'agent inutilisable. Le problème n'est pas technique (le LLM peut traiter du texte), il est **architectural** : comment organiser le flux d'information pour qu'il survive à la fenêtre de contexte et aux redémarrages ?
