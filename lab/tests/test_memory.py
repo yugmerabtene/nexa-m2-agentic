@@ -1,12 +1,15 @@
 """Tests for AgentMemory."""
 
+import importlib
 import json
 import tempfile
 from pathlib import Path
 
 import pytest
 
-from lab.code.03_memory.memory import AgentMemory
+# Import dynamique car le nom du module commence par un chiffre
+memory_module = importlib.import_module("lab.code.03_memory.memory")
+AgentMemory = memory_module.AgentMemory
 
 
 @pytest.fixture

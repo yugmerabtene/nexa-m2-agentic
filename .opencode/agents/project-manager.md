@@ -14,7 +14,7 @@ permission:
     ls *: allow
     *: ask
   external_directory:
-    /home/yug/Documents/nexa-m2-agentic/**": allow
+    /home/yug/Documents/github/nexa-m2-agentic/**: allow
     "*": ask
 ---
 

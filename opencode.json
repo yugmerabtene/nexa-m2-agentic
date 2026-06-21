@@ -20,7 +20,7 @@
         "edit": "allow",
         "task": "allow",
         "bash": { "find *": "allow", "ls *": "allow", "*": "ask" },
-        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+        "external_directory": { "/home/yug/Documents/github/nexa-m2-agentic/**": "allow", "*": "ask" }
       }
     },
     "scrum-master": {
@@ -35,7 +35,7 @@
         "edit": "allow",
         "task": "allow",
         "bash": { "find *": "allow", "ls *": "allow", "mkdir *": "allow", "rm *": "ask", "git *": "ask", "*": "ask" },
-        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+        "external_directory": { "/home/yug/Documents/github/nexa-m2-agentic/**": "allow", "*": "ask" }
       }
     },
     "software-engineer": {
@@ -50,7 +50,7 @@
         "edit": "allow",
         "task": "allow",
         "bash": { "python *": "allow", "pip *": "ask", "find *": "allow", "*": "ask" },
-        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+        "external_directory": { "/home/yug/Documents/github/nexa-m2-agentic/**": "allow", "*": "ask" }
       }
     },
     "devops-engineer": {
@@ -65,7 +65,7 @@
         "edit": "allow",
         "task": "allow",
         "bash": { "pip *": "allow", "gh *": "ask", "git *": "ask", "mkdir *": "allow", "find *": "allow", "*": "ask" },
-        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+        "external_directory": { "/home/yug/Documents/github/nexa-m2-agentic/**": "allow", "*": "ask" }
       }
     },
     "cybersecurity-engineer": {
@@ -80,7 +80,7 @@
         "edit": "deny",
         "task": "allow",
         "bash": { "find *": "allow", "cat *": "allow", "*": "ask" },
-        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+        "external_directory": { "/home/yug/Documents/github/nexa-m2-agentic/**": "allow", "*": "ask" }
       }
     },
     "qa-engineer": {
@@ -95,14 +95,14 @@
         "edit": "allow",
         "task": "allow",
         "bash": { "python *": "allow", "find *": "allow", "*": "ask" },
-        "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+        "external_directory": { "/home/yug/Documents/github/nexa-m2-agentic/**": "allow", "*": "ask" }
       }
     }
   },
   "permission": {
     "edit": "ask",
     "bash": { "find *": "allow", "ls *": "allow", "*": "ask" },
-    "external_directory": { "/home/yug/Documents/nexa-m2-agentic/**": "allow", "*": "ask" }
+    "external_directory": { "/home/yug/Documents/github/nexa-m2-agentic/**": "allow", "*": "ask" }
   },
   "formatter": false,
   "lsp": false,

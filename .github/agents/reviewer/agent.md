@@ -1,7 +1,7 @@
 ---
 name: PR Reviewer
 description: Automated code review on pull requests
-model: gpt-4o
+model: opencode/big-pickle
 hooks:
   preToolUse: "ruff check {file}"
   postToolUse: "python -m pytest {dir} -x"
