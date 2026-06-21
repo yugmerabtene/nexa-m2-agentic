@@ -1,5 +1,57 @@
 # Séance 7 — LangGraph : Orchestration par Graphes d'État
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 3 heures
+
+---
+
+## Description
+
+Cette séance introduit LangGraph comme solution standard pour l'orchestration agentique par graphes d'état. Vous apprendrez à modéliser des workflows complexes avec cycles, parallélisme et intervention humaine. Cette séance fait le pont entre GitHub Agents (séance 6) et CrewAI/AutoGen (séance 8).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 6** et compris l'intégration GitHub
+- Python 3.10+ installé
+- Connaissances de base en graphes et algorithmes
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python
+python3 --version
+
+# Installer LangGraph
+python3 -m pip install langgraph langchain-core
+
+# Vérifier l'installation
+python3 -c "import langgraph; print('LangGraph installé')"
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python
+py --version
+
+# Installer LangGraph
+py -m pip install langgraph langchain-core
+
+# Vérifier l'installation
+py -c "import langgraph; print('LangGraph installé')"
+```
+
+> **Résultat attendu :** LangGraph est installé et importable.
+
+---
+
 ## Introduction théorique
 
 Cette séance aborde la limitation fondamentale des workflows agentiques linéaires et introduit LangGraph comme solution standard pour l'orchestration par graphes d'état.

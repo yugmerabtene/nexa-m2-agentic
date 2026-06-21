@@ -1,5 +1,59 @@
 # Séance 8 — CrewAI, AutoGen & Choix de Framework
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 2 heures
+
+---
+
+## Description
+
+Cette séance compare les trois grands paradigmes d'orchestration multi-agents : CrewAI (rôle-based), AutoGen (conversationnel) et LangGraph (graphe d'état). Vous apprendrez à choisir le bon framework selon votre cas d'usage et implémenterez un même problème avec les trois approches. Cette séance fait le pont entre LangGraph (séance 7) et Agentic RAG (séance 9).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 7** et compris LangGraph
+- Python 3.10+ installé
+- Connaissances de base en programmation asynchrone
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python
+python3 --version
+
+# Installer CrewAI et AutoGen
+python3 -m pip install crewai autogen-agentchat
+
+# Vérifier l'installation
+python3 -c "import crewai; print('CrewAI installé')"
+python3 -c "import autogen_agentchat; print('AutoGen installé')"
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python
+py --version
+
+# Installer CrewAI et AutoGen
+py -m pip install crewai autogen-agentchat
+
+# Vérifier l'installation
+py -c "import crewai; print('CrewAI installé')"
+py -c "import autogen_agentchat; print('AutoGen installé')"
+```
+
+> **Résultat attendu :** CrewAI et AutoGen sont installés et importables.
+
+---
+
 ## Introduction théorique
 
 ### 1. Quel est le problème fondamental ?

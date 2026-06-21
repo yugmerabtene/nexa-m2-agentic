@@ -1,5 +1,50 @@
 # Séance 10 — Fine-tuning & RL pour Agents
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 2 heures
+
+---
+
+## Description
+
+Cette séance explore le fine-tuning avec renforcement (RL) pour optimiser les modèles de langage pour les tâches agentiques. Vous apprendrez les concepts ATLAS, GRPO et curriculum learning, et comprendrez comment adapter un modèle à utiliser des outils avec précision. Cette séance fait le pont entre Agentic RAG (séance 9) et l'optimisation mémoire (séance 11).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 9** et compris le RAG agentique
+- Python 3.10+ installé
+- Connaissances de base en machine learning et reinforcement learning
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python
+python3 --version
+
+# Aucune dépendance supplémentaire pour cette séance
+# Les concepts sont principalement théoriques
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python
+py --version
+
+# Aucune dépendance supplémentaire pour cette séance
+```
+
+> **Résultat attendu :** Python 3.10+ est installé et fonctionnel.
+
+---
+
 ## Introduction théorique
 
 **Quel est le problème ?** Les modèles de base, même les plus performants, sont entraînés sur un vaste corpus textuel généraliste. Ils excellent dans la compréhension du langage naturel et la génération de texte, mais ils ne sont pas optimisés pour les tâches agentiques spécifiques : appeler des outils avec une syntaxe précise, suivre un plan d'action sur plusieurs tours, respecter des formats de réponse stricts. Un agent qui formate mal un appel d'outil casse le pipeline ; un agent qui ignore le format ReAct attendu ne peut pas être parsé ; un agent qui boucle sur la même action gaspille des ressources. Le fine-tuning avec renforcement (RL) sur des environnements agentiques permet de combler ce fossé en exposant le modèle à des situations réelles d'interaction.

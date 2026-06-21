@@ -1,5 +1,57 @@
 # Séance 4 — Model Context Protocol (MCP)
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 3 heures
+
+---
+
+## Description
+
+Cette séance couvre le Model Context Protocol (MCP), le standard de communication entre agents LLM et outils externes. Vous apprendrez l'architecture Host/Client/Server, les primitives (Resources, Prompts, Tools), les transports (stdio, HTTP+SSE), et implémenterez un serveur MCP complet. Cette séance fait le pont entre la mémoire agentique (séance 3) et le protocole A2A (séance 5).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 3** et compris les systèmes de mémoire
+- Python 3.10+ installé
+- Connaissances de base en JSON et APIs
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python
+python3 --version
+
+# Installer le SDK MCP
+python3 -m pip install mcp anyio
+
+# Vérifier l'installation
+python3 -c "import mcp; print('MCP installé')"
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python
+py --version
+
+# Installer le SDK MCP
+py -m pip install mcp anyio
+
+# Vérifier l'installation
+py -c "import mcp; print('MCP installé')"
+```
+
+> **Résultat attendu :** Le SDK MCP est installé et importable.
+
+---
+
 ## Introduction théorique
 
 **Quel est le problème fondamental ?**

@@ -1,5 +1,51 @@
 # Séance 14 — Frontières & Futur de l'Agentic AI
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 2 heures
+
+---
+
+## Description
+
+Cette séance conclusive explore les frontières de l'Agentic AI en 2026 et au-delà. Vous découvrirez les concepts avancés comme DiffMAS (communication latente inter-agent), ACE (Agentic Context Engineering), les agents auto-évolutifs, et les défis de gouvernance. Cette séance fait la synthèse du cours et ouvre des perspectives sur l'avenir des systèmes agentiques.
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé **toutes les séances 1 à 13**
+- Python 3.10+ installé
+- Connaissances complètes du cours
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python
+python3 --version
+
+# Vérification finale de tous les outils
+python3 --version && opencode --version && git --version && gh --version
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python
+py --version
+
+# Vérification finale de tous les outils
+py --version && opencode --version && git --version && gh --version
+```
+
+> **Résultat attendu :** Tous les outils sont installés et fonctionnels.
+
+---
+
 ## Introduction théorique
 
 Cette séance est la dernière du cours. Elle ne présente pas un nouveau protocole

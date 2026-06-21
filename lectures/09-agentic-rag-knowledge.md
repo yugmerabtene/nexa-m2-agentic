@@ -1,5 +1,57 @@
 # Séance 9 — Agentic RAG & Knowledge Systems
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 3 heures
+
+---
+
+## Description
+
+Cette séance explore le RAG agentique (Retrieval-Augmented Generation), une évolution du RAG classique qui intègre des boucles de correction et de décision. Vous apprendrez à implémenter un self-correcting retrieval, des multi-hop queries, et à intégrer des knowledge graphs. Cette séance fait le pont entre les frameworks d'orchestration (séance 8) et le fine-tuning (séance 10).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 8** et compris les frameworks d'orchestration
+- Python 3.10+ installé
+- Connaissances de base en embeddings et vector stores
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python
+python3 --version
+
+# Installer ChromaDB pour le vector store
+python3 -m pip install chromadb
+
+# Vérifier l'installation
+python3 -c "import chromadb; print('ChromaDB installé')"
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python
+py --version
+
+# Installer ChromaDB pour le vector store
+py -m pip install chromadb
+
+# Vérifier l'installation
+py -c "import chromadb; print('ChromaDB installé')"
+```
+
+> **Résultat attendu :** ChromaDB est installé et importable.
+
+---
+
 ## Introduction théorique
 
 **Quel est le problème fondamental ?**

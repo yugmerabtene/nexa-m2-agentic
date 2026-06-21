@@ -1,5 +1,57 @@
 # Séance 12 — Benchmarks & Évaluation
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 2 heures
+
+---
+
+## Description
+
+Cette séance couvre les benchmarks et métriques d'évaluation des systèmes agentiques. Vous apprendrez la famille SWE-bench, les métriques (pass@1, resolve rate, contamination), et implémenterez un évaluateur de benchmark personnalisé. Cette séance fait le pont entre l'optimisation mémoire (séance 11) et le déploiement en production (séance 13).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 11** et compris les stratégies d'optimisation
+- Python 3.10+ installé
+- Connaissances de base en statistiques et métriques
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python
+python3 --version
+
+# Installer LangSmith pour le monitoring
+python3 -m pip install langsmith
+
+# Vérifier l'installation
+python3 -c "import langsmith; print('LangSmith installé')"
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python
+py --version
+
+# Installer LangSmith pour le monitoring
+py -m pip install langsmith
+
+# Vérifier l'installation
+py -c "import langsmith; print('LangSmith installé')"
+```
+
+> **Résultat attendu :** LangSmith est installé et importable.
+
+---
+
 ## Introduction théorique
 
 **Quel problème cette séance adresse-t-elle ?**

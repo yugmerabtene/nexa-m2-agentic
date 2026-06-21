@@ -1,5 +1,53 @@
 # Séance 13 — Déploiement & Production
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 2 heures
+
+---
+
+## Description
+
+Cette séance couvre le déploiement des systèmes agentiques en production. Vous apprendrez l'architecture de production, la CI/CD pour agents, la sécurité (sandboxing, permissions), le monitoring et la gestion des coûts. Cette séance fait le pont entre les benchmarks (séance 12) et les frontières futures (séance 14).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 12** et compris les métriques d'évaluation
+- Python 3.10+ installé
+- Un compte GitHub avec GitHub Actions activé
+- GitHub CLI installé (`gh --version`)
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python et GitHub CLI
+python3 --version
+gh --version
+
+# Aucune dépendance supplémentaire pour cette séance
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python et GitHub CLI
+py --version
+gh --version
+
+# Si gh n'est pas installé
+winget install GitHub.cli
+```
+
+> **Résultat attendu :** Python 3.10+ et GitHub CLI sont installés.
+
+---
+
 ## Introduction théorique
 
 **Quel problème cette séance adresse-t-elle ?**

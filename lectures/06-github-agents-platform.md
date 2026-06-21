@@ -1,5 +1,53 @@
 # Séance 6 — GitHub Agents & Platform
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 3 heures
+
+---
+
+## Description
+
+Cette séance couvre l'intégration des agents dans la plateforme GitHub. Vous apprendrez à configurer des custom agents, utiliser les hooks de cycle de vie, gérer les sessions, et intégrer MCP dans les workflows GitHub Actions. Cette séance fait le pont entre A2A (séance 5) et LangGraph (séance 7).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 5** et compris le protocole A2A
+- Python 3.10+ installé
+- Un compte GitHub
+- GitHub CLI installé (`gh --version`)
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python et GitHub CLI
+python3 --version
+gh --version
+
+# Aucune dépendance supplémentaire pour cette séance
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python et GitHub CLI
+py --version
+gh --version
+
+# Si gh n'est pas installé
+winget install GitHub.cli
+```
+
+> **Résultat attendu :** Python 3.10+ et GitHub CLI sont installés.
+
+---
+
 ## Introduction théorique
 
 ### 1. Quel est le problème fondamental ?

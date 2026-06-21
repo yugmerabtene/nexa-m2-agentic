@@ -1,5 +1,50 @@
 # Séance 11 — Optimisation Mémoire & Contexte
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 2 heures
+
+---
+
+## Description
+
+Cette séance couvre les stratégies d'optimisation mémoire pour les systèmes agentiques en production. Vous apprendrez la quantization du KV cache, l'attention sparse (L2A, RocketKV, AllMem), et la compression contextuelle. Cette séance fait le pont entre le fine-tuning (séance 10) et les benchmarks (séance 12).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 10** et compris les concepts de fine-tuning
+- Python 3.10+ installé
+- Connaissances de base en architecture des transformers
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python
+python3 --version
+
+# Aucune dépendance supplémentaire pour cette séance
+# Les concepts sont principalement théoriques
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python
+py --version
+
+# Aucune dépendance supplémentaire pour cette séance
+```
+
+> **Résultat attendu :** Python 3.10+ est installé et fonctionnel.
+
+---
+
 ## Introduction théorique
 
 **Quel est le problème fondamental ?**

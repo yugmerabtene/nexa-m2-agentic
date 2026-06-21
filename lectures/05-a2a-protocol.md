@@ -1,5 +1,57 @@
 # Séance 5 — Agent-to-Agent Protocol (A2A)
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 2 heures
+
+---
+
+## Description
+
+Cette séance explore le Agent-to-Agent Protocol (A2A), le standard de communication inter-agents proposé par Google DeepMind. Vous apprendrez à créer des Agent Cards, gérer le cycle de vie des tâches, et comprendre la complémentarité avec MCP. Cette séance fait le pont entre MCP (séance 4) et GitHub Agents (séance 6).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 4** et compris le protocole MCP
+- Python 3.10+ installé
+- Connaissances de base en APIs REST
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python
+python3 --version
+
+# Installer le SDK A2A
+python3 -m pip install a2a-sdk
+
+# Vérifier l'installation
+python3 -c "import a2a; print('A2A SDK installé')"
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python
+py --version
+
+# Installer le SDK A2A
+py -m pip install a2a-sdk
+
+# Vérifier l'installation
+py -c "import a2a; print('A2A SDK installé')"
+```
+
+> **Résultat attendu :** Le SDK A2A est installé et importable.
+
+---
+
 ## Introduction théorique
 
 **Quel est le problème fondamental ?**
