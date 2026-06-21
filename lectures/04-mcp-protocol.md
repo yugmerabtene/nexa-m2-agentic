@@ -1,7 +1,5 @@
 # Séance 4 — Model Context Protocol (MCP)
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 3 heures
 
 ---

@@ -1,7 +1,5 @@
 # Séance 3 — Mémoire & Systèmes Agentiques
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 2 heures
 
 ---

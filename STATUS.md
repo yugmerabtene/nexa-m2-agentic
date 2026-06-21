@@ -1,7 +1,6 @@
 # Statut du Projet — AI Developer Assistant
 
 > **Dernière mise à jour :** 2026-06-20
-> **Version :** 2.0
 
 ---
 

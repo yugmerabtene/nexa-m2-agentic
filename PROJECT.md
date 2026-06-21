@@ -1,7 +1,5 @@
 # Projet Fil Rouge — AI Developer Assistant
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 
 ---
 

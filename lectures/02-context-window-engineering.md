@@ -1,7 +1,5 @@
 # Séance 2 — Context Window Engineering
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 2 heures
 
 ---

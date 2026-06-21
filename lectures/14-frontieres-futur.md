@@ -1,7 +1,5 @@
 # Séance 14 — Frontières & Futur de l'Agentic AI
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 2 heures
 
 ---

@@ -1,7 +1,5 @@
 # Séance 8 — CrewAI, AutoGen & Choix de Framework
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 2 heures
 
 ---

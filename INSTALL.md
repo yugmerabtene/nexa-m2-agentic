@@ -1,7 +1,5 @@
 # Guide d'Installation — Cours M2 Nexa Agentic Development
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 
 ---
 

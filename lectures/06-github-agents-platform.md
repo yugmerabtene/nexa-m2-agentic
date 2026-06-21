@@ -1,7 +1,5 @@
 # Séance 6 — GitHub Agents & Platform
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 3 heures
 
 ---

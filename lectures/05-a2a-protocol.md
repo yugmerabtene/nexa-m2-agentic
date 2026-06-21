@@ -1,7 +1,5 @@
 # Séance 5 — Agent-to-Agent Protocol (A2A)
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 2 heures
 
 ---

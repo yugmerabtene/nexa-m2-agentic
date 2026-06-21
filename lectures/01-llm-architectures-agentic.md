@@ -1,7 +1,5 @@
 # Séance 1 — Architecture des LLMs & Genèse Agentique
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 2 heures
 
 ---

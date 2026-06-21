@@ -1,7 +1,5 @@
 # Séance 7 — LangGraph : Orchestration par Graphes d'État
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 3 heures
 
 ---

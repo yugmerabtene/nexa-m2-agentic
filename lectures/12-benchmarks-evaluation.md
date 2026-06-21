@@ -1,7 +1,5 @@
 # Séance 12 — Benchmarks & Évaluation
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 2 heures
 
 ---

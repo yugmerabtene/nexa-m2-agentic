@@ -1,7 +1,5 @@
 # Séance 10 — Fine-tuning & RL pour Agents
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 2 heures
 
 ---

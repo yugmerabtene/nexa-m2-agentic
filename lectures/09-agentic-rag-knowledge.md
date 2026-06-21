@@ -1,7 +1,5 @@
 # Séance 9 — Agentic RAG & Knowledge Systems
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 3 heures
 
 ---

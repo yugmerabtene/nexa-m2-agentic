@@ -1,7 +1,5 @@
 # Séance 11 — Optimisation Mémoire & Contexte
 
-> **Auteur :** yugmerabtene
-> **Version :** 2.0
 > **Durée estimée :** 2 heures
 
 ---
