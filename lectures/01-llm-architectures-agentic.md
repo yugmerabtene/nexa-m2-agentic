@@ -1,5 +1,59 @@
 # Séance 1 — Architecture des LLMs & Genèse Agentique
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 2 heures
+
+---
+
+## Description
+
+Cette séance pose les fondations de l'Agentic AI en retraçant l'évolution des architectures de LLMs de 2017 à 2026. Vous découvrirez comment les modèles de langage sont passés de simples générateurs de texte à des systèmes agentiques capables de raisonnement, d'utilisation d'outils et de planification. Les concepts clés incluent les scaling laws, les architectures MoE/GQA/MLA, et les comportements émergents comme le Chain-of-Thought et ReAct.
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Connaissances de base en deep learning (transformers, attention, tokens)
+- Python 3.10+ installé
+- Un environnement de développement configuré
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python et pip
+python3 --version
+python3 -m pip --version
+
+# Installer les dépendances pour cette séance
+python3 -m pip install tiktoken pytest
+
+# Vérifier opencode
+opencode --version
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python et pip
+py --version
+py -m pip --version
+
+# Installer les dépendances pour cette séance
+py -m pip install tiktoken pytest
+
+# Vérifier opencode
+opencode --version
+```
+
+> **Résultat attendu :** Python 3.10+, pip, tiktoken et opencode sont installés et fonctionnels.
+
+---
+
 ## Introduction théorique
 
 **Le problème.** En 2020, un modèle de langage comme GPT-3 était une machine à compléter du texte : on lui donnait un prompt, il produisait une suite probabiliste de tokens. Il ne raisonnait pas, n'utilisait pas d'outils, ne planifiait pas. C'était un *oracle statistique*, pas un agent. Pourtant, six ans plus tard, les mêmes architectures fondamentales — transformeurs, attention, décodage auto-régressif — servent de socle à des systèmes capables de rédiger du code, de naviguer sur le web, de décomposer des problèmes complexes en sous-étapes, et d'interagir avec des API en temps réel. Comment une même famille d'architectures a-t-elle produit un saut qualitatif aussi radical ? Cette séance répond à cette question en retraçant l'évolution architecturale et algorithmique qui a transformé des modèles de langage statiques en *agents* dynamiques.
@@ -671,6 +725,253 @@ Analyse : le gap entre Claude (93.9%) et Llama 4 Scout (50.1%) est de 43 points.
 ### Lien avec la séance suivante
 
 > *"Maintenant que vous comprenez comment les LLMs modernes sont architecturés (MoE, GQA, MLA) et comment le comportement agentique émerge (CoT, ReAct, planification), la séance 2 — Context Window Engineering — vous apprendra à maîtriser la *mémoire de travail* de l'agent. Vous découvrirez comment optimiser l'utilisation de la fenêtre de contexte (dont la taille est rendue possible par GQA et MLA), comment structurer les informations pour qu'elles soient efficacement récupérées par l'attention, et comment concevoir des stratégies de repérage et de priorisation. En somme : la séance 1 vous a donné la voiture, la séance 2 vous apprendra à conduire."*
+
+---
+
+## Travaux Pratiques — Exploration des architectures LLM
+
+> **Projet fil rouge :** Cette séance pose les fondations pour comprendre les choix architecturaux de votre AI Developer Assistant.
+
+**Objectif :** Visualiser et comprendre les tokens, explorer les architectures MoE, et configurer votre premier agent opencode.
+**Durée :** 45 minutes
+
+---
+
+### Énoncé
+
+1. Installer et utiliser `tiktoken` pour visualiser la tokenisation
+2. Comparer le nombre de tokens entre différentes formulations
+3. Configurer votre premier agent opencode avec `big-pickle`
+4. Tester un prompt agentique (ReAct) avec opencode
+
+**Fichiers à créer :**
+- `seance-01/tokenizer_exploration.py` — Script d'exploration de la tokenisation
+- `seance-01/test_tokenizer.py` — Tests unitaires
+
+---
+
+### Corrigé pas à pas
+
+#### Étape 1 : Créer le dossier du TP
+
+**Point de départ :** ouvrez un terminal dans votre dossier d'exercices.
+
+```bash
+mkdir -p ~/agentic-labs/seance-01
+cd ~/agentic-labs/seance-01
+pwd
+```
+
+> **Résultat attendu :** `pwd` affiche un chemin se terminant par `seance-01`.
+
+#### Étape 2 : Créer le script d'exploration
+
+##### Où créer le fichier ?
+
+```
+seance-01/
+└── tokenizer_exploration.py    ← à créer maintenant
+```
+
+```python
+"""Exploration de la tokenisation avec tiktoken.
+
+Ce script permet de visualiser comment un texte est découpé en tokens
+par le modèle GPT-4. Comprendre la tokenisation est essentiel pour :
+- Estimer les coûts d'API (facturation au token)
+- Optimiser les prompts (éviter le gaspillage de tokens)
+- Comprendre les limites de la fenêtre de contexte
+"""
+
+import tiktoken
+
+
+def compter_tokens(texte: str, modele: str = "gpt-4") -> int:
+    """Compte le nombre de tokens dans un texte.
+
+    Args:
+        texte: Le texte à analyser
+        modele: Le modèle de tokenisation (gpt-4, gpt-3.5-turbo, etc.)
+
+    Returns:
+        Le nombre de tokens dans le texte
+    """
+    # Charger le codec de tokenisation pour le modèle spécifié
+    encodage = tiktoken.encoding_for_model(modele)
+
+    # Encoder le texte en tokens
+    tokens = encodage.encode(texte)
+
+    return len(tokens)
+
+
+def visualiser_tokens(texte: str, modele: str = "gpt-4") -> None:
+    """Affiche les tokens individuels d'un texte.
+
+    Cette fonction montre comment le texte est découpé,
+    ce qui aide à comprendre pourquoi certains textes
+    consomment plus de tokens que d'autres.
+    """
+    encodage = tiktoken.encoding_for_model(modele)
+    tokens = encodage.encode(texte)
+
+    print(f"Texte original : {texte}")
+    print(f"Nombre de tokens : {len(tokens)}")
+    print("\nTokens individuels :")
+
+    for i, token in enumerate(tokens):
+        # Décoder chaque token pour voir son contenu
+        texte_token = encodage.decode([token])
+        print(f"  [{i}] {token} → '{texte_token}'")
+
+
+def comparer_prompts() -> None:
+    """Compare différents styles de prompts en termes de tokens.
+
+    Cette comparaison montre que la formulation d'un prompt
+    impacte directement sa consommation de tokens.
+    """
+    prompts = {
+        "Simple": "Qu'est-ce que l'IA ?",
+        "Détaillé": "Explique le concept d'intelligence artificielle en 3 phrases.",
+        "Technique": "Définis l'IA comme un système capable de percevoir son environnement et d'agir pour atteindre des objectifs.",
+        "Avec contexte": "Tu es un expert en IA. Un étudiant en Master 2 te demande : qu'est-ce que l'IA agentique ? Réponds en mentionnant les LLMs et les architectures modernes.",
+    }
+
+    print("=== Comparaison des prompts ===\n")
+
+    for nom, prompt in prompts.items():
+        nb_tokens = compter_tokens(prompt)
+        print(f"{nom} :")
+        print(f"  Texte : {prompt[:60]}...")
+        print(f"  Tokens : {nb_tokens}")
+        print()
+
+
+if __name__ == "__main__":
+    # Exemple 1 : Visualiser les tokens d'un texte simple
+    print("=== Visualisation des tokens ===\n")
+    visualiser_tokens("L'intelligence artificielle agentique est fascinante !")
+
+    print("\n" + "="*50 + "\n")
+
+    # Exemple 2 : Comparer différents prompts
+    comparer_prompts()
+```
+
+##### Exécuter le fichier
+
+```bash
+python3 tokenizer_exploration.py
+```
+
+##### Résultat attendu
+
+```text
+=== Visualisation des tokens ===
+
+Texte original : L'intelligence artificielle agentique est fascinante !
+Nombre de tokens : 9
+
+Tokens individuels :
+  [0] 43 → 'L'
+  [1] 3604 → "'intelligence"
+  [2] 13679 → ' artificielle'
+  ...
+
+=== Comparaison des prompts ===
+
+Simple :
+  Texte : Qu'est-ce que l'IA ?...
+  Tokens : 8
+
+Détaillé :
+  Texte : Explique le concept d'intelligence artificielle en 3 phrases....
+  Tokens : 12
+...
+```
+
+#### Étape 3 : Créer les tests
+
+##### Où créer le fichier ?
+
+```
+seance-01/
+├── tokenizer_exploration.py
+└── test_tokenizer.py    ← à créer maintenant
+```
+
+```python
+"""Tests pour le script de tokenisation."""
+
+from tokenizer_exploration import compter_tokens
+
+
+def test_compter_tokens_simple():
+    """Test avec un texte simple."""
+    texte = "Bonjour le monde"
+    nb_tokens = compter_tokens(texte)
+    assert nb_tokens > 0
+    assert nb_tokens < 10  # Un texte court doit avoir peu de tokens
+
+
+def test_compter_tokens_vide():
+    """Test avec un texte vide."""
+    texte = ""
+    nb_tokens = compter_tokens(texte)
+    assert nb_tokens == 0
+
+
+def test_compter_tokens_long():
+    """Test avec un texte plus long."""
+    texte = "L'intelligence artificielle " * 100
+    nb_tokens = compter_tokens(texte)
+    assert nb_tokens > 100  # Doit avoir beaucoup de tokens
+```
+
+##### Exécuter les tests
+
+```bash
+python3 -m pytest test_tokenizer.py -v
+```
+
+##### Résultat attendu
+
+```text
+============================= test session starts ==============================
+collected 3 items
+
+test_tokenizer.py::test_compter_tokens_simple PASSED                     [ 33%]
+test_tokenizer.py::test_compter_tokens_vide PASSED                       [ 66%]
+test_tokenizer.py::test_compter_tokens_long PASSED                       [100%]
+
+============================== 3 passed in 0.12s ===============================
+```
+
+---
+
+### Validation
+
+- [ ] `python3 tokenizer_exploration.py` s'exécute sans erreur
+- [ ] Le script affiche le nombre de tokens pour différents textes
+- [ ] `python3 -m pytest test_tokenizer.py -v` affiche 3 tests passés
+- [ ] Vous pouvez expliquer pourquoi "IA" et "intelligence artificielle" n'ont pas le même nombre de tokens
+- [ ] Vous comprenez l'impact de la tokenisation sur les coûts et les limites de contexte
+
+---
+
+## Points clés à retenir
+
+1. **Timeline 2017→2026** : Les LLMs sont passés de générateurs de texte à systèmes agentiques grâce aux innovations architecturales (MoE, GQA, MLA) et algorithmiques (CoT, ReAct, tool use).
+2. **Mixture of Experts (MoE)** : Architecture où seuls les sous-réseaux pertinents sont activés, permettant des modèles massifs à coût d'inférence fixe.
+3. **Comportements agentiques** : Chain-of-Thought, ReAct, tool use et planification transforment le LLM en agent dynamique capable de raisonner et d'agir.
+4. **Gap frontier/open-source** : Le choix du modèle dépend du cas d'usage : performance (frontier) vs coût/confidentialité (open-source).
+
+---
+
+## Liens
+
+- [Séance 2 — Context Window Engineering](./02-context-window-engineering.md)
 
 ---
 

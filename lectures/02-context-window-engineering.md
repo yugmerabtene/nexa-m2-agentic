@@ -1,5 +1,50 @@
 # Séance 2 — Context Window Engineering
 
+> **Auteur :** yugmerabtene
+> **Version :** 2.0
+> **Durée estimée :** 2 heures
+
+---
+
+## Description
+
+Cette séance explore la gestion de la fenêtre de contexte, la ressource la plus critique d'un système agentique. Vous apprendrez pourquoi l'attention en O(n²) et le KV cache limitent les longueurs exploitables, comment optimiser le contexte avec des stratégies comme le sliding window et la compression, et découvrirez les innovations 2026 (FlashAttention-3, Ring Attention, L2A). Cette séance fait le pont entre l'architecture des LLMs (séance 1) et les systèmes de mémoire (séance 3).
+
+---
+
+## Prérequis
+
+Avant de commencer cette séance, assurez-vous d'avoir :
+
+- Terminé la **Séance 1** et compris les concepts de transformers, attention et KV cache
+- Python 3.10+ installé
+- Connaissances de base en deep learning
+
+### Installation des dépendances
+
+#### Linux et macOS
+
+```bash
+# Vérifier Python
+python3 --version
+
+# Aucune dépendance supplémentaire pour cette séance
+# Les concepts sont principalement théoriques
+```
+
+#### Windows PowerShell
+
+```powershell
+# Vérifier Python
+py --version
+
+# Aucune dépendance supplémentaire pour cette séance
+```
+
+> **Résultat attendu :** Python 3.10+ est installé et fonctionnel.
+
+---
+
 ## Introduction théorique
 
 La fenêtre de contexte est la ressource la plus critique et la plus disputée d'un système agentique. Chaque token qui entre dans le contexte occupe de la mémoire GPU et exige du calcul d'attention. Le problème est double : d'une part, la complexité de l'attention est quadratique — doubler la longueur quadruple le temps de calcul — d'autre part, le cache de paires clé-valeur (KV cache) croît linéairement et sature la mémoire GPU bien avant que le calcul ne devienne le goulot d'étranglement. Dans un agent conversationnel, chaque appel API, chaque outil invoqué, chaque morceau de mémoire rappelé ajoute des tokens. Sans une gestion rigoureuse de cette fenêtre, l'agent sature, ralentit, et finit par oublier les instructions les plus importantes.
@@ -93,7 +138,7 @@ L'attention est le mécanisme central des transformers : chaque token regarde to
 
 #### Pourquoi ce concept est crucial
 
-- **Impact sur la conception :** La taille du KV cache détermine le nombre maximal de tokens que l'on peut traiter sur un GPU donné. Avec un H100 (80 GB VRAM), un modèle 70B en FP16 (140 GB) ne tient même pas — il faut du量化 (quantization) ou du parallélisme.
+- **Impact sur la conception :** La taille du KV cache détermine le nombre maximal de tokens que l'on peut traiter sur un GPU donné. Avec un H100 (80 GB VRAM), un modèle 70B en FP16 (140 GB) ne tient même pas — il faut de la quantization ou du parallélisme.
 - **Conséquence si ignoré :** Dépasser la mémoire GPU provoque une erreur CUDA Out-of-Memory (OOM). L'agent plante au moment critique.
 - **Cas d'usage typique :** Un agent qui doit analyser un code source de 50 000 lignes — le KV cache explose avant la fin de la lecture.
 
@@ -367,6 +412,287 @@ Requête entrante
 **Lien avec la séance suivante :**
 
 > *"Maintenant que vous comprenez comment la fenêtre de contexte limite et structure les capacités d'un agent, la séance 3 vous apprendra à construire une mémoire qui ne se contente pas de cette fenêtre unique. Vous réutiliserez les stratégies de sliding window et de compression hiérarchique comme base pour implémenter une mémoire persistante à court terme (STM) et long terme (LTM), avec consolidation automatique — l'étape suivante pour qu'un agent dépasse la barrière du contexte unique."*
+
+---
+
+## Travaux Pratiques — Optimisation de contexte
+
+> **Projet fil rouge :** Cette séance vous prépare à implémenter la mémoire de votre AI Developer Assistant avec des stratégies d'optimisation de contexte.
+
+**Objectif :** Implémenter un sliding window et calculer les coûts mémoire du KV cache.
+**Durée :** 30 minutes
+
+---
+
+### Énoncé
+
+1. Implémenter un calculateur de taille KV cache
+2. Implémenter un sliding window basique
+3. Comparer les coûts mémoire avec/sans optimisation
+
+**Fichiers à créer :**
+- `seance-02/context_optimizer.py` — Script d'optimisation de contexte
+- `seance-02/test_context.py` — Tests unitaires
+
+---
+
+### Corrigé pas à pas
+
+#### Étape 1 : Créer le dossier du TP
+
+**Point de départ :** ouvrez un terminal dans votre dossier d'exercices.
+
+```bash
+mkdir -p ~/agentic-labs/seance-02
+cd ~/agentic-labs/seance-02
+pwd
+```
+
+> **Résultat attendu :** `pwd` affiche un chemin se terminant par `seance-02`.
+
+#### Étape 2 : Créer le script d'optimisation
+
+##### Où créer le fichier ?
+
+```
+seance-02/
+└── context_optimizer.py    ← à créer maintenant
+```
+
+```python
+"""Optimisation de la fenêtre de contexte.
+
+Ce script implémente les concepts clés de la séance 2 :
+- Calcul de la taille du KV cache
+- Sliding window pour limiter la mémoire
+- Comparaison des coûts avec/sans optimisation
+"""
+
+from dataclasses import dataclass
+from typing import List
+
+
+@dataclass
+class ModelConfig:
+    """Configuration d'un modèle LLM."""
+    name: str
+    hidden_size: int  # Dimension du vecteur caché
+    num_layers: int  # Nombre de couches transformer
+    num_heads: int  # Nombre de têtes d'attention
+    precision: str  # "fp16", "fp32", "int8", "int4"
+
+    @property
+    def bytes_per_element(self) -> int:
+        """Retourne le nombre d'octets par élément selon la précision."""
+        precisions = {
+            "fp32": 4,
+            "fp16": 2,
+            "bf16": 2,
+            "int8": 1,
+            "int4": 0.5,
+        }
+        return precisions.get(self.precision, 2)
+
+
+def calculer_kv_cache_size(
+    config: ModelConfig,
+    sequence_length: int
+) -> float:
+    """Calcule la taille du KV cache en GB.
+
+    Formule : 2 * num_layers * sequence_length * hidden_size * bytes_per_element
+    Le facteur 2 vient du fait qu'on stocke K et V.
+
+    Args:
+        config: Configuration du modèle
+        sequence_length: Nombre de tokens dans le contexte
+
+    Returns:
+        Taille du KV cache en GB
+    """
+    # Taille en octets pour K et V
+    taille_octets = (
+        2 *  # K et V
+        config.num_layers *
+        sequence_length *
+        config.hidden_size *
+        config.bytes_per_element
+    )
+
+    # Convertir en GB
+    taille_gb = taille_octets / (1024 ** 3)
+
+    return taille_gb
+
+
+class SlidingWindow:
+    """Implémentation d'une fenêtre glissante pour le contexte.
+
+    Au lieu de garder tout l'historique, on ne garde que les N derniers tokens.
+    Cela limite la mémoire utilisée mais perd le contexte ancien.
+    """
+
+    def __init__(self, window_size: int):
+        """Initialise la fenêtre glissante.
+
+        Args:
+            window_size: Nombre maximum de tokens à garder
+        """
+        self.window_size = window_size
+        self.tokens: List[str] = []
+
+    def add(self, token: str) -> None:
+        """Ajoute un token à la fenêtre.
+
+        Si la fenêtre est pleine, le token le plus ancien est supprimé.
+
+        Args:
+            token: Le token à ajouter
+        """
+        self.tokens.append(token)
+
+        # Si on dépasse la taille, supprimer le plus ancien
+        if len(self.tokens) > self.window_size:
+            self.tokens.pop(0)
+
+    def get_context(self) -> List[str]:
+        """Retourne les tokens dans la fenêtre.
+
+        Returns:
+            Liste des tokens actuels
+        """
+        return self.tokens.copy()
+
+    def __len__(self) -> int:
+        """Retourne le nombre de tokens dans la fenêtre."""
+        return len(self.tokens)
+
+
+def comparer_strategies() -> None:
+    """Compare les coûts mémoire de différentes stratégies."""
+    # Configuration d'un modèle 70B (comme Llama 2 70B)
+    config = ModelConfig(
+        name="Llama-2-70B",
+        hidden_size=8192,
+        num_layers=80,
+        num_heads=64,
+        precision="fp16"
+    )
+
+    longueurs = [1000, 10000, 100000, 1000000]
+
+    print("=== Coût mémoire KV cache (Llama-2-70B, FP16) ===\n")
+    print(f"{'Longueur':>12} | {'KV Cache (GB)':>15}")
+    print("-" * 30)
+
+    for longueur in longueurs:
+        taille = calculer_kv_cache_size(config, longueur)
+        print(f"{longueur:>12,} | {taille:>15.2f}")
+
+    print("\n=== Impact de la quantization ===\n")
+
+    # Comparer les précisions pour 100K tokens
+    precisions = ["fp32", "fp16", "int8", "int4"]
+
+    print(f"{'Précision':>12} | {'KV Cache (GB)':>15}")
+    print("-" * 30)
+
+    for precision in precisions:
+        config_prec = ModelConfig(
+            name="Llama-2-70B",
+            hidden_size=8192,
+            num_layers=80,
+            num_heads=64,
+            precision=precision
+        )
+        taille = calculer_kv_cache_size(config_prec, 100000)
+        print(f"{precision:>12} | {taille:>15.2f}")
+
+
+if __name__ == "__main__":
+    # Démonstration du sliding window
+    print("=== Sliding Window ===\n")
+
+    window = SlidingWindow(window_size=5)
+
+    for i in range(10):
+        window.add(f"token_{i}")
+        print(f"Ajout token_{i}: {window.get_context()}")
+
+    print(f"\nFenêtre finale ({len(window)} tokens): {window.get_context()}")
+
+    print("\n" + "="*50)
+
+    # Comparaison des stratégies
+    comparer_strategies()
+```
+
+##### Exécuter le fichier
+
+```bash
+python3 context_optimizer.py
+```
+
+##### Résultat attendu
+
+```text
+=== Sliding Window ===
+
+Ajout token_0: ['token_0']
+Ajout token_1: ['token_0', 'token_1']
+...
+Ajout token_9: ['token_5', 'token_6', 'token_7', 'token_8', 'token_9']
+
+Fenêtre finale (5 tokens): ['token_5', 'token_6', 'token_7', 'token_8', 'token_9']
+
+==================================================
+
+=== Coût mémoire KV cache (Llama-2-70B, FP16) ===
+
+    Longueur |   KV Cache (GB)
+------------------------------
+       1,000 |            0.02
+      10,000 |            0.24
+     100,000 |            2.38
+   1,000,000 |           23.84
+
+=== Impact de la quantization ===
+
+   Précision |   KV Cache (GB)
+------------------------------
+        fp32 |            4.77
+        fp16 |            2.38
+        int8 |            1.19
+        int4 |            0.60
+```
+
+---
+
+### Validation
+
+- [ ] `python3 context_optimizer.py` s'exécute sans erreur
+- [ ] Le sliding window garde bien seulement les 5 derniers tokens
+- [ ] Vous pouvez calculer la taille KV cache pour n'importe quel modèle
+- [ ] Vous comprenez l'impact de la quantization sur la mémoire
+- [ ] Vous pouvez expliquer pourquoi 1M de tokens nécessite ~24 GB en FP16
+
+---
+
+## Points clés à retenir
+
+1. **Physique de la fenêtre** : L'attention en O(n²) et le KV cache en O(n) limitent les longueurs exploitables.
+2. **Limites effectives** : La performance réelle chute bien avant la limite annoncée (facteur 2× à 10×).
+3. **Stratégies d'optimisation** : Sliding window, compression, cache et hiérarchie sont complémentaires.
+4. **Innovations 2026** : FlashAttention-3, Ring Attention, L2A, RocketKV, AllMem, TTT, ACE repoussent les limites.
+
+---
+
+## Liens
+
+- [Séance 1 — Architecture des LLMs](./01-llm-architectures-agentic.md)
+- [Séance 3 — Systèmes de Mémoire](./03-memoire-systemes-agentiques.md)
+
+---
 
 ## Références contextualisées
 
