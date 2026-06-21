@@ -574,7 +574,7 @@ def benchmark_agent(model, tasks: list[dict]) -> dict:
 # print(f"Gain après fine-tuning RL: {gain * 100:.1f}%")
 ```
 
-**Lab associé :** `lab/README.md` — Partie 5 : Fine-tuning d'un modèle pour tool calling avec Unsloth. Mettez en pratique ce pipeline sur un dataset ReAct de 500 trajectoires.
+**Exercice pratique :** Fine-tuning conceptuel d'un modèle pour tool calling avec Unsloth. Mettez en pratique ce pipeline sur un dataset ReAct de 500 trajectoires (voir les ressources complémentaires pour les instructions détaillées).
 
 ---
 

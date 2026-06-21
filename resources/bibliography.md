@@ -34,8 +34,6 @@
 | LangChain/LangGraph Docs | https://python.langchain.com/docs |
 | LangGraph How-To | https://langchain-ai.github.io/langgraph/ |
 | CrewAI Docs | https://docs.crewai.com |
-| Ollama | https://github.com/ollama/ollama |
-| vLLM | https://github.com/vllm-project/vllm |
 | SWE-bench | https://swebench.com |
 
 ## GitHub & Copilot

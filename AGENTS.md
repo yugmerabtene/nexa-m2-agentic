@@ -19,13 +19,22 @@ Ce répertoire est un projet standard utilisant opencode avec une équipe d'agen
 /
 ├── opencode.json               ← Configuration avec équipe de dev
 ├── AGENTS.md                   ← vous êtes ici
+├── README.md                   ← Page d'accueil du cours
+├── INSTALL.md                  ← Guide d'installation
+├── PROJECT.md                  ← Projet fil rouge
+├── CHECKLIST.md                ← Checklists de validation
+├── STATUS.md                   ← Statut du projet
 ├── .opencode/
 │   ├── agents/                 ← Définitions des agents
 │   └── skills/                 ← Skills métier (domaine du projet)
-├── src/                        ← Code source du projet
-├── tests/                      ← Tests
-├── docs/                       ← Documentation
-└── resources/                  ← Références
+├── lectures/                   ← 14 séances de cours
+├── lab/                        ← Laboratoires pratiques
+│   ├── code/                   ← Code des labs
+│   └── tests/                  ← Tests des labs
+├── syllabus/                   ← Syllabus et templates
+├── resources/                  ← Références et bibliographie
+├── research/                   ← Notes de recherche
+└── projects/                   ← Idées de projets
 ```
 
 ## Conventions

@@ -9,7 +9,7 @@
 
 **Spécifications:**
 - Utilise LangGraph pour l'orchestration
-- MCP pour l'interaction avec les APIs cloud (AWS/GCP/Azure)
+- MCP pour l'interaction avec les APIs locales et services open-source
 - GitHub Agents pour l'intégration CI/CD
 - Mémoire persistante pour l'historique des incidents
 

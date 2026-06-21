@@ -426,7 +426,7 @@ pour construire ce futur.
   de la communication vectorielle entre agents. Définit les équations de
   diffusion et les protocoles de consensus latent.
   *Niveau de lecture :* avancé (recherche)
-  *→* https://arxiv.org/abs/2603.XXXXX
+  *→* Référence pédagogique — article non publié
 
 - **[Microsoft Research, "Agentic Context Engineering: A Systematic Approach to Context Design" (2026)]**
   *Contexte :* framework ACE — cité en 14.3. Définit les composants de

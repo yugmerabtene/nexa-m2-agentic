@@ -25,7 +25,7 @@
 │         │                ┌────────▼───────────┐   │
 │         │                │  Vector Store        │   │
 │         │                │  (ChromaDB local)    │   │
-│         │  │  Embeddings (via API ou local) │
+│         │  │  Embeddings (locaux uniquement)  │
 │         │                └────────────────────┘   │
 │         │                                         │
 │         └──────────────┬──────────────────────┘   │

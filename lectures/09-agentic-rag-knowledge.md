@@ -582,4 +582,4 @@ if __name__ == "__main__":
 # 4. Ajouter un mode chat avec historique persistant
 ```
 
-Voir `lab/README.md` — Partie 4 pour les instructions complètes.
+Voir `lab/lab2-rag.md` pour les instructions complètes du lab RAG.

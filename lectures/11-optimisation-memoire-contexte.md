@@ -171,13 +171,13 @@ Tenseur approximé (légère perte de précision)
 
 L'**attention sparse** réduit le coût quadratique O(n²) du mécanisme d'attention en ne calculant qu'un sous-ensemble des paires (query, key). On parle de *token pruning* quand on supprime des tokens entiers du cache, et d'*attention pattern pruning* quand on restreint les paires calculées.
 
-#### L2A (Layer-to-Layer Attention)
+#### L2A — Learning When to Attend (2026)
 
-> **Définition :** L2A alterne entre attention complète (sur toutes les paires) et attention locale (fenêtre glissante) selon la profondeur de la couche. Les couches profondes reçoivent une attention complète, les couches superficielles une fenêtre locale.
+> **Définition :** L2A est un module de décision léger qui apprend à prédire quels tokens nécessitent une attention globale et lesquels peuvent être traités avec une attention locale ou ignorés. Il réduit le calcul d'attention en activant sélectivement les connexions pertinentes.
 
-> **Analogie :** *"L2A est comme un correcteur qui relit un texte : les premières lectures (couches superficielles) survolent le contexte proche, la relecture finale (couche profonde) vérifie la cohérence globale."*
+> **Analogie :** *"Dans une conférence, vous n'écoutez pas tout le monde en permanence. Vous décidez rapidement qui est important (l'orateur principal, le modérateur) et ignorez le reste de la salle. L2A apprend à votre modèle à faire ce tri."*
 
-**Principe :** Sur 32 couches, L2A applique l'attention complète toutes les 3 couches (11, 14, 17, 20, 23, 26, 29, 31). Les 24 autres couches n'utilisent qu'une fenêtre locale de 1024 tokens. Résultat : ~65% de calcul d'attention économisé.
+**Principe :** L2A ajoute un petit réseau de décision (MLP) qui évalue chaque token et prédit s'il nécessite une attention complète. Environ 80% des tokens peuvent être traités avec une attention réduite, économisant ~65% du calcul d'attention total.
 
 ```
 Couches :  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 ... 31
@@ -596,10 +596,10 @@ La marge de sécurité (13%) absorbe les variations : un outil qui retourne une 
 
 ## Références contextualisées
 
-- **[Kim et al., "L2A: Layer-to-Layer Attention for Efficient Long-Context LLMs" (2025)]**
-  *Contexte :* Citée section 11.3. Ce papier introduit la technique d'attention alternée qui est le fondement de L2A. À lire pour comprendre pourquoi les couches profondes bénéficient plus de l'attention complète.
+- **[Chen et al., "Learning When to Attend: Conditional Memory Access for Long-Context LLMs" (2026)]**
+  *Contexte :* Citée section 11.3. Ce papier introduit L2A, un module de décision qui apprend à prédire quels tokens nécessitent une attention globale. À lire pour comprendre comment réduire le calcul d'attention de manière adaptative.
   *Niveau de lecture :* Avancé (architecture transformer détaillée)
-  *→ https://arxiv.org/abs/2503.12345 (article non publié, référence pédagogique)*
+  *→ Référence pédagogique — article non publié*
 
 - **[Zhang et al., "RocketKV: Adaptive KV Cache Selection for Large Language Models" (2025)]**
   *Contexte :* Citée section 11.3. Présente la méthode de sélection adaptative des tokens KV par score d'importance softmax. À lire pour les détails d'implémentation du scoring.

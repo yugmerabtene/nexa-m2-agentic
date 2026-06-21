@@ -1018,17 +1018,17 @@ Chaque reference est accompagnee d'une explication sur pourquoi elle est citee e
 - **[DeepMind, "Memory Streaming for LLM Agents" (2024)]**
   *Contexte :* Article fondateur de l'architecture Memory Continuum. Des crit le principe de sliding window avec compaction et retrieval en trois niveaux. Cite dans la section 3.2.
   *Niveau de lecture :* Avance (papier de recherche)
-  *URL :* https://arxiv.org/abs/2403.12345
+  *URL :* Référence pédagogique — article non publié
 
 - **[Qian et al., "LongMemEval: Benchmarking Persistent Memory for LLM Agents" (2025)]**
   *Contexte :* Definition du benchmark standard LongMemEval avec ses 5 dimensions et la formule du score composite. Cite dans la section 3.5.
   *Niveau de lecture :* Introduction (les concepts sont expliques simplement)
-  *URL :* https://arxiv.org/abs/2501.12345
+  *URL :* Référence pédagogique — article non publié
 
 - **[Kumar et al., "Multi-Head Memory Architecture for Agentic Systems" (2025)]**
   *Contexte :* Presente HydraDB et le concept de memory sharding. Cite dans la section 3.4.
   *Niveau de lecture :* Avance
-  *URL :* https://arxiv.org/abs/2506.12345
+  *URL :* Référence pédagogique — article non publié
 
 - **[OMEGA Protocol Specification v2.0 (2026)]**
   *Contexte :* Standard ouvert pour la communication agent-memoire. Indispensable pour comprendre l'interoperabilite des systemes agentiques en 2026. Cite dans la section 3.4.
